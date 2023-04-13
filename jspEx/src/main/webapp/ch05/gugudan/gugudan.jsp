@@ -9,17 +9,15 @@
 	<h1>gugudan Example</h1>
 	<%
 	request.setCharacterEncoding("UTF-8");
-	String msg = request.getParameter("gugudan");
-	int number = Integer.parseInt(request.getParameter("number"));
-	int count = 0;
-	while (number > count) {
-	%>
-	<b><%=msg%></b>
-	<br />
-	<%
-	count++;
+	int gugudan = Integer.parseInt(request.getParameter("gugudan"));
+
+	out.println("<h1>" + gugudan + "단출력" + "</h1>" + "<br/>");
+	for (int i = 1; i < 10; i++) {
+		out.println(gugudan + " * " + i + " = " + (gugudan * i) + "<br>");
 	}
 	%>
+
+
 
 </body>
 </html>
