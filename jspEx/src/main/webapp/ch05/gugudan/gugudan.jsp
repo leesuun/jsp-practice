@@ -18,10 +18,10 @@ body {
 span {
 	display: inline-block;
 	width: 80px;
-	border: 1px solid red;
+	border: 1px solid white;
 	padding: 5px;
 	text-align: center;
-	
+	background-color: red;
 }
 </style>
 </head>
@@ -40,8 +40,9 @@ span {
 		out.println("<div>");
 		for (int j = 1; j < 9; j++) {
 			out.println("<span>" + (j + 1) + " * " + (i - 1) + " = " + ((j + 1) * (i - 1)) + "</span>");
-
+			System.out.print((j + 1) + " * " + (i - 1) + " = " + ((j + 1) * (i - 1)) + "\t");
 		}
+		System.out.println("");
 		out.println("</div>");
 		out.println("<br>");
 	}
