@@ -14,20 +14,20 @@ import java.io.PrintWriter;
 @WebServlet("/ch08/GetServlet")
 public class GetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String msg = request.getParameter("msg");
-		response.setContentType("text/html; charset=EUC-KR");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id = request.getParameter("id");
+		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
 		out.println("<h1>Get Servlet 방식</h1>");
-		out.println("<h2>msg : "+msg + "</h2>");
+		out.println("<h2>아이디 : " + id + "</h2>");
+		out.println("<h2>비밀번호 : " + null + "</h2>");
 		out.println("</body>");
 		out.println("</html>");
 	}
-       
- 
 
 }
