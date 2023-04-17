@@ -29,4 +29,14 @@
     <servlet-name>ExampleServlet02</servlet-name>
     <url-pattern>/ExampleServlet02</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetServlet</display-name>
+    <servlet-name>GetServlet</servlet-name>
+    <servlet-class>ch08.GetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetServlet</servlet-name>
+    <url-pattern>/GetServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
