@@ -49,4 +49,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CalcServlet</display-name>
+    <servlet-name>CalcServlet</servlet-name>
+    <servlet-class>practice.CalcServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalcServlet</servlet-name>
+    <url-pattern>/CalcServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CalcServlet1</display-name>
+    <servlet-name>CalcServlet1</servlet-name>
+    <servlet-class>practice.CalcServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalcServlet1</servlet-name>
+    <url-pattern>/CalcServlet1</url-pattern>
+  </servlet-mapping>
 </web-app>
