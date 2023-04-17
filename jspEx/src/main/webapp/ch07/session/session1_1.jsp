@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=EUC-KR"  %>
+
+<%@ page contentType="text/html;charset=EUC-KR"%>
 <%
 request.setCharacterEncoding("EUC-KR");
 
@@ -28,6 +29,7 @@ if (id != null) {
 <%
 /* session.invalidate(); */
 } else {
+response.sendRedirect("session1.html");
 System.out.println("id=null");
 out.println("세션의 시간이 경과를 하였거나 다른 이유로 연결을 할 수가 없습니다.");
 }

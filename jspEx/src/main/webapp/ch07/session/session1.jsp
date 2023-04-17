@@ -6,7 +6,7 @@ String id = request.getParameter("id");
 String pwd = request.getParameter("pwd");
 
 session.setAttribute("idKey", id);
-session.setMaxInactiveInterval(60 * 5);
+session.setMaxInactiveInterval(10);
 %>
 <h1>Session Example1</h1>
 <form method="post" action="session1_1.jsp">
