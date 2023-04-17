@@ -26,7 +26,7 @@ public class CalcServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String oper = request.getParameter("operation");
 		int result = 0;
-		int num1 = 0, num2 = 0;
+		int num1 = 0, num2 = 1;
 
 		out.println("<html>");
 		out.println("<body>");
