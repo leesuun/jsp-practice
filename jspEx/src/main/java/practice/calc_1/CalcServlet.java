@@ -1,4 +1,4 @@
-package practice;
+package practice.calc_1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class CalcServlet
  */
-@WebServlet("/practice/CalcServlet")
+@WebServlet("/jsp_example/practice/calc_1/CalcServlet")
 public class CalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
