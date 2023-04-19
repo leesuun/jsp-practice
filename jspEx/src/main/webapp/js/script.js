@@ -1,37 +1,37 @@
 function inputCheck(){
 	if(document.regForm.id.value==""){
-		alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.id.focus();
 		return;
 	}
 	if(document.regForm.pwd.value==""){
-		alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.pwd.focus();
 		return;
 	}
 	if(document.regForm.repwd.value==""){
-		alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.repwd.focus();
 		return;
 	}
 	if(document.regForm.name.value==""){
-		alert("ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ì´ë¦„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.name.focus();
 		return;
 	}
 	if(document.regForm.birthday.value==""){
-		alert("»ı³â¿ùÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ìƒë…„ì›”ì¼ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.birthday.focus();
 		return;
 	}
 	if(document.regForm.email.value==""){
-		alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+		alert("ì´ë©”ì¼ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 		document.regForm.email.focus();
 		return;
 	}
 
 	if(document.regForm.pwd.value != document.regForm.repwd.value){
-		alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
+		alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
 		document.regForm.repwd.focus();
 		return;
 	}
