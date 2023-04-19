@@ -41,8 +41,12 @@
             <td><jsp:getProperty name="regBean" property="email" /></td>
           </tr>
           <tr>
-            <td>전화번호</td>
+            <td>휴대폰 번호</td>
             <td><jsp:getProperty name="regBean" property="phone" /></td>
+          </tr>
+          <tr>
+            <td>주소</td>
+            <td><jsp:getProperty name="regBean" property="address" /></td>
           </tr>
           <tr> 
             <td colspan="2" align="center"> 

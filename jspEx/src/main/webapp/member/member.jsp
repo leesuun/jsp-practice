@@ -3,7 +3,7 @@
 <head>
 <title>회원가입</title>
 <link href="../css/m_style.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="../js/script.js"></script>
+
 </head>
 <body bgcolor="#996600">
 	<table width="500" align="center" cellspacing="0" cellpadding="5">
@@ -45,9 +45,15 @@
 							<td>이메일을 적어주세요.</td>
 						</tr>
 						<tr>
-							<td>전화번호</td>
+							<td>휴대폰 번호</td>
 							<td><input name="phone" size="20"></td>
-							<td>전화번호를 적어주세요.</td>
+							<td>휴대폰 번호를 적어주세요.</td>
+						</tr>
+
+						<tr>
+							<td>주소</td>
+							<td><input name="address" size="30"></td>
+							<td>주소를 적어주세요.</td>
 						</tr>
 						<tr>
 							<td colspan="3" align="center"><input type="button"
@@ -59,5 +65,7 @@
 			</td>
 		</tr>
 	</table>
+	<script type="module" src="../js/regExp.js"></script>
+	<script language="JavaScript" src="../js/script.js"></script>
 </body>
 </html>
