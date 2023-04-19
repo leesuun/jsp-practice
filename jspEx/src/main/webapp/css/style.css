@@ -1,14 +1,18 @@
 @charset "EUC-KR";
 
-body{
+body {
 	display: flex;
 	justify-content: center;
-	align-content:center;
+	align-content: center;
 	background-color: black;
 	color: white;
 	flex-direction: column;
 }
 
-body form{
+hr {
+	background: blue;
+	background-color: blue;
+	height: 3px;
+	border: 0px;
 	
 }

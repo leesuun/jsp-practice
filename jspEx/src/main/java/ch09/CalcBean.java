@@ -29,7 +29,7 @@ public class CalcBean {
 	public void setNum2(int num2) {
 		this.num2 = num2;
 	}
-	
+
 	public int getResult() {
 		return result;
 	}
