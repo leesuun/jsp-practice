@@ -1,4 +1,4 @@
-package practice;
+package practice.calc_1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,12 +8,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CalcServlet
  */
-@WebServlet("/practice/CalcServlet")
+
+@WebServlet("/practice/calc_1/CalcServlet")
 public class CalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,9 +28,8 @@ public class CalcServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html; charset=UTF-8");
 		String oper = request.getParameter("operation");
-		HttpSession session = request.getSession();
 		int result = 0;
-		int num1 = 0, num2 = 1;
+		int num1 = 0, num2 = 0;
 
 		out.println("<html>");
 		out.println("<body>");
@@ -40,11 +39,12 @@ public class CalcServlet extends HttpServlet {
 		try {
 			num1 = Integer.parseInt(request.getParameter("num1"));
 			num2 = Integer.parseInt(request.getParameter("num2"));
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			// TODO: handle exception
-
-			session.setAttribute("err", e);
-			response.sendRedirect("calc_error.jsp");
+			out.println("error: " + e);
+			out.println("<h2>숫자는 정수만 입력하세요!!!</h2>");
+			out.println("</body>");
+			out.println("</html>");
 			return;
 		}
 
@@ -63,20 +63,21 @@ public class CalcServlet extends HttpServlet {
 				result = (num1 / num2);
 			} catch (ArithmeticException e) {
 				// TODO: handle exception
+
 				out.println("error: " + e);
 				out.println("<h2>0으로 나눌수 없습니다</h2>");
-				session.setAttribute("err", e);
-				response.sendRedirect("calc_error.jsp");
 				return;
 			}
 			break;
+
 		}
 
-		/* System.out.println("에러 체크"); */
 		out.println("<h2>계산 결과:" + Integer.toString(num1) + oper.toString() + Integer.toString(num2) + "=" + result
 				+ "</h2>");
+
 		out.println("</body>");
 		out.println("</html>");
+
 		System.out.println(num1 + " " + num2 + " " + oper);
 
 	}

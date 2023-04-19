@@ -1,6 +1,7 @@
 const regExp = {
+	id: /^[a-z]+[a-z0-9]{5,19}$/g,
 	email: /[a-z0-9]+@[a-z]+.[a-z]{2,3}/,
-	password: /((?=.*[0-9])(?=.*[a-zA-Z])|(?=.*[a-zA-Z])(?=.*[0-9]))/g,
+	password: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
 	phone: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
 };
 
@@ -12,8 +13,8 @@ function inputCheck() {
 		return;
 	}
 
-	if (!regExp.email.test(document.regForm.id.value)) {
-		alert("잘못된 아이디 형식입니다. ex)xxxx@naver.com");
+	if (!regExp.id.test(document.regForm.id.value)) {
+		alert("잘못된 아이디 형식입니다. ex)아이디,숫자 6~20자");
 		document.regForm.id.focus();
 		return;
 	}
@@ -24,7 +25,7 @@ function inputCheck() {
 		return;
 	}
 	if (!regExp.password.test(document.regForm.pwd.value)) {
-		alert("사용할 수 없는 비밀번호 형식입니다. ex)영문, 숫자 조합");
+		alert("사용할 수 없는 비밀번호 형식입니다. ex)영문, 숫자, 특수문자 조합 8~16자");
 		document.regForm.pwd.focus();
 		return;
 	}

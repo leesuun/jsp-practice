@@ -65,7 +65,6 @@
 			</td>
 		</tr>
 	</table>
-	<script type="module" src="../js/regExp.js"></script>
 	<script language="JavaScript" src="../js/script.js"></script>
 </body>
 </html>
