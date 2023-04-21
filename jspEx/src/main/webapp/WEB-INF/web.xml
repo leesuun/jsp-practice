@@ -39,4 +39,24 @@
     <servlet-name>calcServlet</servlet-name>
     <url-pattern>/calcServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CalcServlet1</display-name>
+    <servlet-name>CalcServlet1</servlet-name>
+    <servlet-class>practice.calc_1.CalcServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalcServlet1</servlet-name>
+    <url-pattern>/CalcServlet1</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Calcservlet</display-name>
+    <servlet-name>Calcservlet</servlet-name>
+    <servlet-class>practice.calc_1.Calcservlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Calcservlet</servlet-name>
+    <url-pattern>/Calcservlet</url-pattern>
+  </servlet-mapping>
 </web-app>
