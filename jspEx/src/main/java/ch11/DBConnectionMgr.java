@@ -31,262 +31,275 @@ import java.util.Vector;
 /**
  * Manages a java.sql.Connection pool.
  *
- * @author  Anil Hemrajani
+ * @author Anil Hemrajani
  */
 public class DBConnectionMgr {
-    private Vector connections = new Vector(10);
-    private String _driver = "com.mysql.cj.jdbc.Driver",
-    _url = "jdbc:mysql://127.0.0.1:3306/businessdb?useUnicode=true&characterEncoding=UTF-8",
-    _user = "root",
-    _password = "qkfkadml@12";
-    private boolean _traceOn = false;
-    private boolean initialized = false;
-    private int _openConnections = 10;
-    private static DBConnectionMgr instance = null;
+	private Vector connections = new Vector(10);
+	private String _driver = "com.mysql.cj.jdbc.Driver",
+			_url = "jdbc:mysql://127.0.0.1:3306/businessdb?useUnicode=true&characterEncoding=UTF-8", _user = "root",
+			_password = "qkfkadml@12";
+	private boolean _traceOn = false;
+	private boolean initialized = false;
+	private int _openConnections = 10;
+	private static DBConnectionMgr instance = null;
 
-    public DBConnectionMgr() {
-    }
+	public DBConnectionMgr() {
+	}
 
-    /** Use this method to set the maximum number of open connections before
-     unused connections are closed.
-     */
+	/**
+	 * Use this method to set the maximum number of open connections before unused
+	 * connections are closed.
+	 */
 
-    public static DBConnectionMgr getInstance() {
-        if (instance == null) {
-            synchronized (DBConnectionMgr.class) {
-                if (instance == null) {
-                    instance = new DBConnectionMgr();
-                }
-            }
-        }
-        return instance;
-    }
+	public static DBConnectionMgr getInstance() {
+		if (instance == null) {
+			synchronized (DBConnectionMgr.class) {
+				if (instance == null) {
+					instance = new DBConnectionMgr();
+				}
+			}
+		}
+		return instance;
+	}
 
-    public void setOpenConnectionCount(int count) {
-        _openConnections = count;
-    }
+	public void setOpenConnectionCount(int count) {
+		_openConnections = count;
+	}
 
-    public void setEnableTrace(boolean enable) {
-        _traceOn = enable;
-    }
+	public void setEnableTrace(boolean enable) {
+		_traceOn = enable;
+	}
 
-    /** Returns a Vector of java.sql.Connection objects */
-    public Vector getConnectionList() {
-        return connections;
-    }
+	/** Returns a Vector of java.sql.Connection objects */
+	public Vector getConnectionList() {
+		return connections;
+	}
 
-    /** Opens specified "count" of connections and adds them to the existing pool */
-    public synchronized void setInitOpenConnections(int count)
-            throws SQLException {
-        Connection c = null;
-        ConnectionObject co = null;
-        
-        for (int i = 0; i < count; i++) {
-            c = createConnection();
-            co = new ConnectionObject(c, false);
-            connections.addElement(co);
-            trace("ConnectionPoolManager: Adding new DB connection to pool (" + connections.size() + ")");
-        }
-    }
+	/** Opens specified "count" of connections and adds them to the existing pool */
+	public synchronized void setInitOpenConnections(int count) throws SQLException {
+		Connection c = null;
+		ConnectionObject co = null;
 
-    /** Returns a count of open connections */
-    public int getConnectionCount() {
-        return connections.size();
-    }
+		for (int i = 0; i < count; i++) {
+			c = createConnection();
+			co = new ConnectionObject(c, false);
+			connections.addElement(co);
+			trace("ConnectionPoolManager: Adding new DB connection to pool (" + connections.size() + ")");
+		}
+	}
 
-    /** Returns an unused existing or new connection.  */
-    public synchronized Connection getConnection()
-            throws Exception {
-        if (!initialized) {
-            Class c = Class.forName(_driver);
-            DriverManager.registerDriver((Driver) c.newInstance());
-            initialized = true;
-        }
-        Connection c = null;
-        ConnectionObject co = null;
-        boolean badConnection = false;
+	/** Returns a count of open connections */
+	public int getConnectionCount() {
+		return connections.size();
+	}
 
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            // If connection is not in use, test to ensure it's still valid!
-            if (!co.inUse) {
-                try {
-                    badConnection = co.connection.isClosed();
-                    if (!badConnection)
-                        badConnection = (co.connection.getWarnings() != null);
-                } catch (Exception e) {
-                    badConnection = true;
-                    e.printStackTrace();
-                }
-                // Connection is bad, remove from pool
-                if (badConnection) {
-                    connections.removeElementAt(i);
-                    trace("ConnectionPoolManager: Remove disconnected DB connection #" + i);
-                    continue;
-                }
-                c = co.connection;
-                co.inUse = true;
-                trace("ConnectionPoolManager: Using existing DB connection #" + (i + 1));
-                break;
-            }
-        }
+	/** Returns an unused existing or new connection. */
+	public synchronized Connection getConnection() throws Exception {
+		if (!initialized) {
+			Class c = Class.forName(_driver);
+			DriverManager.registerDriver((Driver) c.newInstance());
+			initialized = true;
+		}
+		Connection c = null;
+		ConnectionObject co = null;
+		boolean badConnection = false;
 
-        if (c == null) {
-            c = createConnection();
-            co = new ConnectionObject(c, true);
-            connections.addElement(co);
-            trace("ConnectionPoolManager: Creating new DB connection #" + connections.size());
-        }
-        return c;
-    }
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			// If connection is not in use, test to ensure it's still valid!
+			if (!co.inUse) {
+				try {
+					badConnection = co.connection.isClosed();
+					if (!badConnection)
+						badConnection = (co.connection.getWarnings() != null);
+				} catch (Exception e) {
+					badConnection = true;
+					e.printStackTrace();
+				}
+				// Connection is bad, remove from pool
+				if (badConnection) {
+					connections.removeElementAt(i);
+					trace("ConnectionPoolManager: Remove disconnected DB connection #" + i);
+					continue;
+				}
+				c = co.connection;
+				co.inUse = true;
+				trace("ConnectionPoolManager: Using existing DB connection #" + (i + 1));
+				break;
+			}
+		}
 
-    /** Marks a flag in the ConnectionObject to indicate this connection is no longer in use */
-    public synchronized void freeConnection(Connection c) {
-        if (c == null)
-            return;
+		if (c == null) {
+			c = createConnection();
+			co = new ConnectionObject(c, true);
+			connections.addElement(co);
+			trace("ConnectionPoolManager: Creating new DB connection #" + connections.size());
+		}
+		return c;
+	}
 
-        ConnectionObject co = null;
+	/**
+	 * Marks a flag in the ConnectionObject to indicate this connection is no longer
+	 * in use
+	 */
+	public synchronized void freeConnection(Connection c) {
+		if (c == null)
+			return;
 
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            if (c == co.connection) {
-                co.inUse = false;
-                break;
-            }
-        }
+		ConnectionObject co = null;
 
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            if ((i + 1) > _openConnections && !co.inUse)
-                removeConnection(co.connection);
-        }
-    }
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			if (c == co.connection) {
+				co.inUse = false;
+				break;
+			}
+		}
 
-    public void freeConnection(Connection c, PreparedStatement p, ResultSet r) {
-        try {
-            if (r != null) r.close();
-            if (p != null) p.close();
-            freeConnection(c);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			if ((i + 1) > _openConnections && !co.inUse)
+				removeConnection(co.connection);
+		}
+	}
 
-    public void freeConnection(Connection c, Statement s, ResultSet r) {
-        try {
-            if (r != null) r.close();
-            if (s != null) s.close();
-            freeConnection(c);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public void freeConnection(Connection c, PreparedStatement p, ResultSet r) {
+		try {
+			if (r != null)
+				r.close();
+			if (p != null)
+				p.close();
+			freeConnection(c);
 
-    public void freeConnection(Connection c, PreparedStatement p) {
-        try {
-            if (p != null) p.close();
-            freeConnection(c);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void freeConnection(Connection c, Statement s) {
-        try {
-            if (s != null) s.close();
-            freeConnection(c);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public void freeConnection(Connection c, Statement s, ResultSet r) {
+		try {
+			if (r != null)
+				r.close();
+			if (s != null)
+				s.close();
+			freeConnection(c);
 
-    /** Marks a flag in the ConnectionObject to indicate this connection is no longer in use */
-    public synchronized void removeConnection(Connection c) {
-        if (c == null)
-            return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        ConnectionObject co = null;
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            if (c == co.connection) {
-                try {
-                    c.close();
-                    connections.removeElementAt(i);
-                    trace("Removed " + c.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
-    }
+	public void freeConnection(Connection c, PreparedStatement p) {
+		try {
+			if (p != null)
+				p.close();
 
-    private Connection createConnection()
-            throws SQLException {
-        Connection con = null;
-        
-        try {
-            if (_user == null)
-                _user = "";
-            if (_password == null)
-                _password = "";
+			freeConnection(c);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-            Properties props = new Properties();
-            props.put("user", _user);
-            props.put("password", _password);
+	public void freeConnection(Connection c, Statement s) {
+		try {
+			if (s != null)
+				s.close();
+			freeConnection(c);
 
-            con = DriverManager.getConnection(_url, props);
-        } catch (Throwable t) {
-            throw new SQLException(t.getMessage());
-        }
-        return con;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    /** Closes all connections and clears out the connection pool */
-    public void releaseFreeConnections() {
-        trace("ConnectionPoolManager.releaseFreeConnections()");
+	/**
+	 * Marks a flag in the ConnectionObject to indicate this connection is no longer
+	 * in use
+	 */
+	public synchronized void removeConnection(Connection c) {
+		if (c == null)
+			return;
 
-        Connection c = null;
-        ConnectionObject co = null;
+		ConnectionObject co = null;
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			if (c == co.connection) {
+				try {
+					c.close();
+					connections.removeElementAt(i);
+					trace("Removed " + c.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+		}
+	}
 
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            if (!co.inUse)
-                removeConnection(co.connection);
-        }
-    }
+	private Connection createConnection() throws SQLException {
+		Connection con = null;
 
-    /** Closes all connections and clears out the connection pool */
-    public void finalize() {
-        trace("ConnectionPoolManager.finalize()");
+		try {
+			if (_user == null)
+				_user = "";
+			if (_password == null)
+				_password = "";
 
-        Connection c = null;
-        ConnectionObject co = null;
+			Properties props = new Properties();
+			props.put("user", _user);
+			props.put("password", _password);
 
-        for (int i = 0; i < connections.size(); i++) {
-            co = (ConnectionObject) connections.get(i);
-            try {
-                co.connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            co = null;
-        }
-        connections.removeAllElements();
-    }
+			con = DriverManager.getConnection(_url, props);
+		} catch (Throwable t) {
+			throw new SQLException(t.getMessage());
+		}
+		return con;
+	}
 
-    private void trace(String s) {
-        if (_traceOn)
-            System.err.println(s);
-    }
+	/** Closes all connections and clears out the connection pool */
+	public void releaseFreeConnections() {
+		trace("ConnectionPoolManager.releaseFreeConnections()");
+
+		Connection c = null;
+		ConnectionObject co = null;
+
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			if (!co.inUse)
+				removeConnection(co.connection);
+		}
+	}
+
+	/** Closes all connections and clears out the connection pool */
+	public void finalize() {
+		trace("ConnectionPoolManager.finalize()");
+
+		Connection c = null;
+		ConnectionObject co = null;
+
+		for (int i = 0; i < connections.size(); i++) {
+			co = (ConnectionObject) connections.get(i);
+			try {
+				co.connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			co = null;
+		}
+		connections.removeAllElements();
+	}
+
+	private void trace(String s) {
+		if (_traceOn)
+			System.err.println(s);
+	}
 }
 
 class ConnectionObject {
-    public java.sql.Connection connection = null;
-    public boolean inUse = false;
+	public java.sql.Connection connection = null;
+	public boolean inUse = false;
 
-    public ConnectionObject(Connection c, boolean useFlag) {
-        connection = c;
-        inUse = useFlag;
-    }
+	public ConnectionObject(Connection c, boolean useFlag) {
+		connection = c;
+		inUse = useFlag;
+	}
 }

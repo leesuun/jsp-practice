@@ -9,7 +9,9 @@
 		pwd  = request.getParameter("pwd");
 	if(regMgr.loginRegister(id, pwd)){
 		Cookie cookie = new Cookie("idKey", id);
+		cookie.setMaxAge(5);
 		response.addCookie(cookie);
+		
 %>
 	<script> 
 	  alert("로그인 되었습니다.");
