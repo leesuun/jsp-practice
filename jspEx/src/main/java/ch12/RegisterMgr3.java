@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import ch11.DBConnectionMgr;
 import ch11.RegisterBean;
@@ -21,11 +22,46 @@ public class RegisterMgr3 {
 	public RegisterMgr3() {
 		try {
 			pool = DBConnectionMgr.getInstance();
-			/* con = pool.getConnection(); */
-			/* System.out.println("con: " + con); */
 		} catch (Exception e) {
 			System.out.println("Error : 커넥션 연결 실패");
 		}
+	}
+
+	public Vector<RegisterBean> getRegisterList() {
+
+		Vector<RegisterBean> vlist = new Vector<RegisterBean>();
+		try {
+			String strQuery = "select * from customer_2";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(strQuery);
+
+			while (rs.next()) {
+				RegisterBean regBean = new RegisterBean();
+				regBean.setId(rs.getString("id"));
+				regBean.setPassword(rs.getString("pwd"));
+				regBean.setName(rs.getString("name"));
+				vlist.add(regBean);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Exception" + e);
+		} finally {
+			pool.freeConnection(con);
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (stmt != null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+				}
+			/*
+			 * if (con != null) try { con.close(); } catch (SQLException e) { }
+			 */
+		}
+		return vlist;
 	}
 
 	public RegisterBean getName(String id) throws SQLException {
@@ -70,9 +106,8 @@ public class RegisterMgr3 {
 		} finally {
 			try {
 				pool.freeConnection(con, pstmt, rs);
-				/*
-				 * pstmt.close(); rs.close();
-				 */
+				pstmt.close();
+				rs.close();
 			} catch (Exception e) {
 				// TODO: handle exception
 

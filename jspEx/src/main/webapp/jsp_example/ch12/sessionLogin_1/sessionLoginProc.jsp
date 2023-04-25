@@ -10,6 +10,7 @@ if (request.getParameter("pwd") != null)
 if (regMgr.loginRegister(id, pwd)) {
 	session.setAttribute("idKey", id);
 	session.setAttribute("name", regMgr.getName(id).getName());
+	session.setAttribute("allUser", regMgr.getRegisterList());
 %>
 <script>
     alert("로그인 되었습니다.");

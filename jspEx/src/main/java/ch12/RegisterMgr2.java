@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import ch11.DBConnectionMgr;
 import ch11.RegisterBean;
@@ -27,6 +28,8 @@ public class RegisterMgr2 {
 			System.out.println("Error : 커넥션 연결 실패");
 		}
 	}
+	
+
 
 	public RegisterBean getName(String id) throws SQLException {
 		regBean = new RegisterBean();
