@@ -1,10 +1,13 @@
 <%@page import="ch11.RegisterBean"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="regMgr" class="ch12.RegisterMgr3" />
+<jsp:useBean id="ragMgr" class="ch12.RegisterMgr3" />
 <%
+/* 전체 정보 */
 Vector<RegisterBean> nameList = (Vector<RegisterBean>) session.getAttribute("allUser");
+/* 특정 정보 */
 RegisterBean loggedInUserInfo = null;
+
 String type = request.getParameter("type");
 String loggedInUser = (String) session.getAttribute("idKey");
 
@@ -63,7 +66,6 @@ for (int i = 0; i < nameList.size(); i++) {
       <%
       }
       %>
-
     </tbody>
   </table>
 
