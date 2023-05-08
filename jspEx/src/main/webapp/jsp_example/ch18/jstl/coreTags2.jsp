@@ -27,7 +27,7 @@
       <c:set var="c" value="핑크색" />
     </c:when>
     <c:otherwise>
-      <c:set var="c" value="블랙" />
+      <c:set var="c" value="하얀색" />
     </c:otherwise>
   </c:choose>
   님이 좋아하는 색상은
