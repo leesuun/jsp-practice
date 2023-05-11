@@ -13,8 +13,47 @@
 		<body-content>empty</body-content>
 	</tag>
 	<tag>
-	<name>welcomeBody</name>
-	<tag-class>ch19.WelcomeBodyTag</tag-class>
-	<body-content>scriptless</body-content>
+		<name>welcomeBody</name>
+		<tag-class>ch19.WelcomeBodyTag</tag-class>
+		<body-content>scriptless</body-content>
 	</tag>
+	<tag>
+		<name>addSum</name>
+		<tag-class>ch19.AddSumTag</tag-class>
+		<body-content>scriptless</body-content>
+	</tag>
+
+	<tag>
+		<name>page</name>
+		<tag-class>ch19.PageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>from</name>
+			<type>java.lang.Integer</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>to</name>
+			<type>java.lang.Integer</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	
+		<tag>
+		<name>bmi</name>
+		<tag-class>ch19.GetBmi</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>height</name>
+			<type>java.lang.Integer</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>weight</name>
+			<type>java.lang.Integer</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
 </taglib>
