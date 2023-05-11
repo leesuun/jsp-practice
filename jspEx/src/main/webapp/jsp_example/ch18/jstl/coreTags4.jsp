@@ -12,7 +12,7 @@
 	<c:param name="color" value="orange"/>
 </c:import>
 <hr width="360" align="left"/>
-<c:url var="url1" value="https://www.google.co.kr/">
+<c:url var="url1" value="https://www.naver.com/">
 	<c:param name="q" value="JSPStudy"/>
 	<c:param name="safe" value="off"/>
 </c:url>
@@ -21,3 +21,4 @@
 </html>
 <!-- http://localhost:8081/jspEx/jsp_example/ch18/jstl/coreTags2.jsp -->
 <!-- https://www.google.co.kr/?q=JSPStudy&safe=off -->
+

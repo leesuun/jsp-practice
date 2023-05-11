@@ -6,12 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+body {
+	display: flex;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	font-size: 1.5rem;
+}
+</style>
 </head>
 <body>
   <h2>SQL Tags2</h2>
   <sql:update dataSource="${db}">
   update tblMember set name=? where id=?
-  <sql:param value="${'마시마로'}" />
+  <sql:param value="${'업데이트 했움 ㅎㅎ'}" />
     <sql:param value="${'1'}" />
   </sql:update>
   업데이트를 하였습니다.

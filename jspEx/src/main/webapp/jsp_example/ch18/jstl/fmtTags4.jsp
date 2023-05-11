@@ -5,6 +5,16 @@
 <html>
 <head>
 <title>JSTL</title>
+<style>
+body {
+	display: flex;
+  flex-direction:column;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	font-size: 1.5rem;
+}
+</style>
 </head>
 <body>
   <h2>Formatting Tags4</h2>
