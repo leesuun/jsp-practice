@@ -46,12 +46,12 @@
 		<body-content>empty</body-content>
 		<attribute>
 			<name>height</name>
-			<type>java.lang.Integer</type>
+			<type>java.lang.Double</type>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<name>weight</name>
-			<type>java.lang.Integer</type>
+			<type>java.lang.Double</type>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>

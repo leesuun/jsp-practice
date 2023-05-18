@@ -25,11 +25,11 @@ public class GetBmi extends SimpleTagSupport {
 		this.bmi = Math.round(weight / (Math.pow(height / 100, 2.0)) * 100) / 100.0;
 	}
 
-	public void setHeight(int i) {
+	public void setHeight(double i) {
 		this.height = i;
 	}
 
-	public void setWeight(int i) {
+	public void setWeight(double i) {
 		this.weight = i;
 	}
 
